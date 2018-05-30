@@ -36,3 +36,36 @@ np.linalg.inv()：矩阵求逆
 np.linalg.det()：矩阵求行列式（标量）
 
 ```
+
+- 数组拼接方法
+
+1. 使用stack函数系列
+
+这个系列的函数接受list、tuple、以及np数组,最后返回一个np数组
+
+**np.concatenate():**
+
+**axis=1时要保证数组必须有第二个维度即shape为（m,n）而不是（m, ）**
+```Python
+np.concatenate((a1, a2, …), axis=0)
+"""
+参数解释
+第一个参数为由数组构成的元组，第二个参数表示拼接方向,默认axis=0
+传入的数组必须具有相同的形状，这里的相同的形状可以满足在拼接方向axis轴上数组间的形状一致即可
+"""
+#  以下为示例
+print(np.concatenate([np.arange(0,6), np.arange(6,12)]),'\n') # 沿仅有的一个轴拼接
+# 沿着垂直0轴的方向拼接，即不改变0轴的大小，横向拼接
+print(np.concatenate([np.arange(0,6).reshape(1,-1), np.arange(6,12).reshape(1,-1)]),'\n') 
+# 沿着垂直1轴的方向拼接，即不改变1轴的大小，纵向拼接
+print(np.concatenate([np.arange(0,6).reshape(1,-1), np.arange(6,12).reshape(1,-1)], axis=1))
+
+>>>
+[ 0  1  2  3  4  5  6  7  8  9 10 11] 
+
+[[ 0  1  2  3  4  5]
+ [ 6  7  8  9 10 11]] 
+
+[[ 0  1  2  3  4  5  6  7  8  9 10 11]]
+
+```
