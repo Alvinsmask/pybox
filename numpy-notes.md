@@ -1,4 +1,4 @@
-- 求矩阵范数
+### 求矩阵范数
 
 范数，首先需要注意的是范数是对向量（或者矩阵）的度量，是一个标量（scalar）
 
@@ -37,7 +37,7 @@ np.linalg.det()：矩阵求行列式（标量）
 
 ```
 
-- 数组拼接方法
+### 数组拼接方法
 
 1. 使用stack函数系列
 
@@ -96,7 +96,7 @@ print(np.concatenate([np.arange(0,6).reshape(1,-1), np.arange(6,12).reshape(1,-1
 
 ```
 
-- 数组沿不同轴向累加 np.cumsum
+### 数组沿不同轴向累加 np.cumsum
 
 **返回给定axis上的累计和**
 
