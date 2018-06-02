@@ -95,3 +95,59 @@ print(np.concatenate([np.arange(0,6).reshape(1,-1), np.arange(6,12).reshape(1,-1
 [[ 0  1  2  3  4  5  6  7  8  9 10 11]]
 
 ```
+
+- 数组沿不同轴向累加 np.cumsum
+
+**返回给定axis上的累计和**
+
+` numpy.cumsum(a, axis=None, dtype=None, out=None)  # Return the cumulative sum of the elements along a given axis.`
+  
+ 对于一维输入a（可以是list，可以是array，假设a=[1, 2, 3, 4, 5, 6, 7] ，就是当前列之前的和加到当前列上，如下：
+ 
+ ```Python
+    >>>import numpy as np  
+    >>> b=[1,2,3,4,5,6,7]  
+    >>> np.cumsum(a)  
+    array([  1,   3,   6,  10,  15,  21,  28,  36,  45,  55,  75, 105])  
+ ```
+
+2.对于二维输入a，axis可以是0(第一行不动，其他行累加)， 1(第一列列不动，其他列累加)，如下：
+
+```Python
+    >>>import numpy as np  
+    >>> c=[[1,2,3],[4,5,6],[7,8,9]]  
+    >>> np.cumsum(c,axis=0)  
+    array([[ 1,  2,  3],  
+           [ 5,  7,  9],  
+           [12, 15, 18]])  
+    >>> np.cumsum(c,axis=1)  
+    array([[ 1,  3,  6],  
+           [ 4,  9, 15],  
+           [ 7, 15, 24]])  
+ ```
+ 
+ 3.对于三维输入a, axis可以是 0(第0维不动，其他维累加)， 1(第1维不动，其他维累加)， 2(第2维不动，其他维累加)，注意维数从外到内是0-2编号，如下：
+ 
+ ```Python
+    >>>import numpy as np  
+    >>> a  
+    [[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 20, 30]]]  
+    >>> np.cumsum(a,axis=0)  
+    array([[[ 1,  2,  3],  
+            [ 4,  5,  6]],  
+      
+           [[ 8, 10, 12],  
+            [14, 25, 36]]])  
+    >>> np.cumsum(a,axis=1)  
+    array([[[ 1,  2,  3],  
+            [ 5,  7,  9]],  
+      
+           [[ 7,  8,  9],  
+            [17, 28, 39]]])  
+    >>> np.cumsum(a,axis=2)  
+    array([[[ 1,  3,  6],  
+            [ 4,  9, 15]],  
+      
+           [[ 7, 15, 24],  
+            [10, 30, 60]]])  
+ ```
