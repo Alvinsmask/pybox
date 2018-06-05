@@ -18,3 +18,18 @@
 >>> print('%6.sf'%3.14)
 '3.140'
 ```
+ 2. Python operator.itemgetter函数
+ 
+ `from operator import itemgetter` 作用：itemgetter 用于获取对象的哪些位置的数据，参数即为代表位置的序号值
+ 
+ itemgetter 获取的不是值，而是定义了一个函数，通过该函数作用到目标对象上，取出目标对象对应维度的值例如：
+ 
+ ```Python
+   >>>a = [1,2,3]
+   >>>b = [[1,2,3],[4,5,6],[7,8,9]] 
+   >>>get_1 = itemgetter(1)
+   get_1(a)  
+   >>> 2
+   >>>get_1(b)  
+   >>> [4,5,6]
+ ```
