@@ -85,3 +85,59 @@ counts = defaultdict(lambda: 0)  # 使用lambda来定义简单的函数
 for s in strings:
     counts[s] += 1
 ```
+
+### 可变集合set()与不可变集合frozenset()
+
+**set无序排序且不重复，是可变的，有add（），remove（）等方法**。既然是可变的，所以它**不存在哈希值**。基本功能包括关系测试和消除重复元素. 集合对象还支持union(联合), intersection(交集), difference(差集)和sysmmetric difference(对称差集)等数学运算.
+sets 支持 x in set, len(set),和 for x in set。作为一个无序的集合，**sets不记录元素位置或者插入点。**因此，sets不支持 indexing, 或其它类序列的操作。
+
+**frozenset是冻结的集合，它是不可变的，存在哈希值**，好处是它可以作为字典的key，也可以作为其它集合的元素。缺点是一旦创建便不能更改，**没有add，remove方法。**
+
+- 集合的创建
+
+  直接创建，参数必须为可迭代对象或者是迭代器
+    
+  可以通过以下方法创建，与创建字典类似，不过只有值没有键
+    
+    ```Python
+           >>>s={'chessseshop','bookshop'}直接创建，类似于list的[]和dict的{}，不同于dict的是其中的值，set会将其中的元素转换为元组
+           >>>s
+           >>> {'bookshop', 'chessseshop'}
+           >>> type(s)
+           <type 'set'>
+    ```
+
+- 更新可变集合
+
+  ```Python
+           >>> s.add('z')  #添加
+           >>> s
+           set(['c', 'e', 'h', 'o', 'p', 's', 'z'])
+           >>> s.update('pypi') #添加
+           >>> s
+           set(['c', 'e', 'i', 'h', 'o', 'p', 's', 'y', 'z'])
+           >>> s.remove('z') #删除
+           >>> s
+           set(['c', 'e', 'i', 'h', 'o', 'p', 's', 'y'])
+           >>> s -= set('pypi')#删除
+           >>> s
+           set(['c', 'e', 'h', 'o', 's'])
+           >>> del s  #删除集合
+  ```
+- 其他逻辑操作
+
+1. 成员关系 in, not in
+
+2. 子集/超集 <  >= 
+
+3. 等价/不等价 ==  ！=
+
+4. 遍历 `for i in  set: `
+
+5. 并集 `a|b`
+   
+   交集 `a&b`
+   
+   两个集合(s 和 t)的差补或相对补集是指一个集合 C，该集合中的元素，只属于集合 s，而不属于集合 t。差符号有一个等价的方法，difference().` s - t`
+   
+   异或（XOR）
