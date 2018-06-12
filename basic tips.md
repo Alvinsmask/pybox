@@ -35,3 +35,26 @@
  ```
 
 3. sorted()函数 返回类型为list
+
+4. 高阶函数
+
+高阶函数接受另一个函数作为参数，并且以某种方式应用这个函数。 **Python包含了內建的高阶函数， map 和 filter 用于处理可迭代对象**
+
+- map() 函数
+
+map() 会根据提供的函数对指定序列做映射。第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 function 函数返回值的新列表。
+
+`map(function, iterable, ...)` **Python 2.x 返回列表。Python 3.x 返回迭代器。**
+
+代码示例：
+
+```Python
+data=map(lambda x : x**2, [1, 2, 3])
+print(data.__next__())
+print(data.__next__())
+print(data.__next__())
+>>>
+    1
+    4
+    9
+```
