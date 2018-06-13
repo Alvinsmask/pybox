@@ -96,11 +96,13 @@ except <exception type>:
 
 **可以使用with语句，自动关闭文件**
 
-`with open('myfile.txt', 'w') as f: 
-    <statements>`
+```Python
+with open('myfile.txt', 'w') as f: 
+    <statements>
+```
 
 - 文本文件的输出
-
+write方法接受字符串作为参数，因此其他类型的数据，例如整数或者浮点数必须先转换成字符串，然后才能输出到文件中。
 ```Python
 f=open('myfile.txt', 'w')  # 第二个参数'w'表示在内存中打开文件用于输出，'r'表示打开文件用于读取
 f.write('first line. \nseconf line.\n')
