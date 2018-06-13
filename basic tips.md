@@ -129,6 +129,32 @@ with open('myfile.txt', 'w') as f:
    for data in f.readlines():
         <statements>
 ```
+**pickle模块** 该模块可以直接存储对象而不用进行字符串的类型转换
+
+例如，可以使用pickle模块把一个列表中的对象保存到.dat文件中再进行恢复。 我们不需要知道列表中的对象是什么类型以及对象的数目。
+
+```Python
+import pickle
+
+# 写入模块
+lyst = [60, 'a string object', 190.3]
+fileobj = open('items.dat', 'wb')  # 打开items.dat文件，如果不存在则创建， ‘wb’字节标志表示以写入方式打开
+for item in lyst:
+    pickle.dump(ite,,fileobj)
+fileogj.close()
+
+#读取模块
+lyst=list()
+fileobj = open('items.dat', 'rb')  # 打开items.dat文件，如果不存在则创建， ‘wb’字节标志表示以读取方式打开
+while True：
+    try:
+        item=pickle.load(fileobj)
+        lyst.append(item)
+    except EOFError:  # 捕获到达文件末尾时产生的EOFError
+        flieobj.close()
+        break
+```
+
 7. 字符串分割函数
 
 Python split() 通过指定分隔符对字符串进行切片，如果参数 num 有指定值，则仅分隔 num 个子字符串
@@ -144,3 +170,5 @@ str -- 分隔符，默认为所有的空字符，包括空格、换行(\n)、制
 `str.strip([chars])` 
 
 **chars -- 移除字符串头尾指定的字符序列。**
+
+###　9. 有关类
