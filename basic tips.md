@@ -92,3 +92,17 @@ except <exception type>:
 
 示例：使用一个**递归函数**约束用户输入行为，捕获到valueerror异常，就会强制用户再次输入，直到正确为止。
 
+6. 文件及其操作 
+
+**可以使用with语句，自动关闭文件**
+
+`with open('myfile.txt', 'w') as f: 
+    <statements>`
+
+- 文本文件的输出
+
+```Python
+f=open('myfile.txt', 'w')  # 第二个参数'w'表示在内存中打开文件用于输出，'r'表示打开文件用于读取
+f.write('first line. \nseconf line.\n')
+f.close()  #  不进行关闭操作的话可能会造成数据丢失
+```
