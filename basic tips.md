@@ -102,9 +102,37 @@ with open('myfile.txt', 'w') as f:
 ```
 
 - 文本文件的输出
+
 write方法接受字符串作为参数，因此其他类型的数据，例如整数或者浮点数必须先转换成字符串，然后才能输出到文件中。
 ```Python
 f=open('myfile.txt', 'w')  # 第二个参数'w'表示在内存中打开文件用于输出，'r'表示打开文件用于读取
 f.write('first line. \nseconf line.\n')
 f.close()  #  不进行关闭操作的话可能会造成数据丢失
 ```
+
+- 文本文件的读取
+
+常规方法：
+```Python
+f=open('myfile.txt', 'r')  
+text=f.read()  # 将整个文件作为一个单独的字符串输入。如果文件包含了多行文本，换行字符会嵌入到字符串中
+# 在读取结束后再次调用read方法，会返回一个空的字符串，表明已经到达了文件的末尾。
+
+text2=f.readline()  # 只读取一行输入，并返回字符串，包括换行符。如果readline遇到了文件末尾，返回空字符串
+#  常与while语句搭配以读取文本文件
+f.close()  
+```
+**readlines**方法：依次读取每行，最后返回列表
+
+```Python
+with open('myfile.txt', 'w') as f: 
+   for data in f.readlines():
+        <statements>
+```
+7. 字符串分割函数
+
+Python split() 通过指定分隔符对字符串进行切片，如果参数 num 有指定值，则仅分隔 num 个子字符串
+
+`str.split(str="", num=string.count(str))` 
+
+str -- 分隔符，默认为所有的空字符，包括空格、换行(\n)、制表符(\t)等; num -- 分割次数。
