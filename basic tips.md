@@ -172,3 +172,11 @@ str -- 分隔符，默认为所有的空字符，包括空格、换行(\n)、制
 **chars -- 移除字符串头尾指定的字符序列。**
 
 9. 有关类
+
+定义python类的语法为：
+```Python
+class <class name>(<parent class name>):
+    <class variable assignment>
+    <instance method definition>
+```
+按照惯例，类名需要大写； 实例方法__init__叫做构造方法（类比构造函数）
