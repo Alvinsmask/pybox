@@ -180,3 +180,54 @@ class <class name>(<parent class name>):
     <instance method definition>
 ```
 按照惯例，类名需要大写； 实例方法__init__叫做构造方法（类比构造函数）
+
+10. 有关路径与目录的函数
+
+有关获取项目位置的方法
+```Python
+sys.path  # 表示当前工程下系统的额环境变量
+sys.path[0]  # 表示当前文档（项目）所在的绝对路径
+```
+
+有关获取当前目录下所有文件信息的方法
+```Python
+os.listdir(path)  # 获取path下所有文件的文件名
+```
+
+拼接路径的方法
+```Python
+os.path.join(path1，path2,....,filename)  # 获取path下所有文件的文件名
+```
+
+Python 读取指定目录及其子目录下所有文件名
+
+在此使用 python 的`os.walk()` 函数实现遍历指定目录及所有子目录下的所有文件。
+
+`walk()`函数返回目录树生成器(迭代器)。通过自顶向下遍历目录来生成目录树中的文件名。对于根目录顶部（包括顶部本身）树中的每个目录，它产生一个3元组`（dirpath，dirnames，filenames）`。dirpath是一个字符串，即目录的路径。
+
+dirnames是dirpath中子目录的名称列表。filenames是dirpath中非目录文件名称的列表。但列表中的名称不包含路径，要得到一个完整路径（从顶部开始）到dirpath中的文件或目录，请执行`os.path.join（dirpath，name）`。更多详情可查看 python 标准库文档os.walk() 。
+
+实现代码如下
+```Python
+import os
+def all_path(dirname):
+    filelistlog = dirname + "\\filelistlog.txt"  # 保存文件路径
+    # postfix = set(['pdf','doc','docx','epub','txt','xlsx','djvu','chm','ppt','pptx'])  # 设置要保存的文件格式
+    for maindir, subdir, file_name_list in os.walk(dirname):
+        for filename in file_name_list:
+            apath = os.path.join(maindir, filename)
+            if True:        # 保存全部文件名。若要保留指定文件格式的文件名则注释该句
+            #if apath.split('.')[-1] in postfix:   # 匹配后缀，只保存所选的文件格式。若要保存全部文件，则注释该句
+                try:
+                    with open(filelistlog, 'a+') as fo:
+                        fo.writelines(apath)
+                        fo.write('\n')
+                except:
+                    pass    # 所以异常全部忽略即可
+
+
+if __name__ == '__main__':
+    dirpath = "D:"  # 指定根目录
+    all_path(dirpath)
+```
+
