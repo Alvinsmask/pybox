@@ -219,7 +219,7 @@ def all_path(dirname):
             if True:        # 保存全部文件名。若要保留指定文件格式的文件名则注释该句
             #if apath.split('.')[-1] in postfix:   # 匹配后缀，只保存所选的文件格式。若要保存全部文件，则注释该句
                 try:
-                    with open(filelistlog, 'a+') as fo:
+                    with open(filelistlog, 'a+') as fo:  # 'w+'表示如果已存在就覆盖  'a+'表示追加写入
                         fo.writelines(apath)
                         fo.write('\n')
                 except:
