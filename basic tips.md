@@ -235,3 +235,27 @@ if __name__ == '__main__':
     all_path(dirpath)
 ```
 
+11. 进行函数编程的时候：常常会给一些参数赋初始值。我们把这些初始值叫作Default Argument Values。一般情况下，我们可以很自由的给参数赋初值，而不需要考虑任何异常的情况或者陷阱。但是当你给这些参数赋值为可变对象（mutable object)，比如list，dictionary，很多类的实例时，那么你要小心了，因为函数参数的初值只能被计算一次（在函数定义的时间里）
+
+```Python
+    def bad_foo(item, my_list=[]):
+    my_list.append(item)
+    return my_list
+
+    print bad_foo('a')
+
+    print bad_foo('b')
+
+    print bad_foo('c')
+
+    >>>
+    
+
+    ['a']
+    ['a', 'b']
+    ['a', 'b', 'c']
+
+
+
+```
+
