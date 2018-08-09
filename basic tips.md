@@ -185,7 +185,7 @@ class <class name>(<parent class name>):
 ```
 按照惯例，类名需要大写； 实例方法__init__叫做构造方法（类比构造函数）
 
-**@classmethod 用法**classmethod 修饰符对应的函数不需要实例化，不需要 self 参数，但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。
+**@classmethod 用法**classmethod 修饰符对应的函数不需要实例化，不需要 self 参数，但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。cls表示类对象，而不是类实例
 
 例如：
 
