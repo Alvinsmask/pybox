@@ -41,7 +41,10 @@ assert （表达式） # 如果正确就表示 pass  如果不正确则抛出一
 - 添加测试用例，两种方法，一是把类下的所有测试用例加入到测试套件中`suite.addTest(unittest.makeSuite(MyTest))` 其中MyTest为自定义的测试用例类；二是在测试套件里增加一个测试用例方法，`suite.addTest(MyTest('testa')`；**测试用例添加方法只能有一种，两种同时使用会抛出错误**
 
 - `runner=xmlrunner.XMLTestRunner(output='.')` # 生成测试报告方法：**xmlrunner**，这个方法只要指定测试报告目录就可以
-    
+
+  方法2：runner = unittest.TextTestRunner(stream=Unbuffered(sys.stdout, 'TestReport.log') , verbosity=2)
+  **使用unittest类自带的TextTestRunner函数，生成log文件**verbosity指定report的详细程度。
+  
 - `runner.run(suite)`   #运行模块
 
 2. unittest中的setUp和tearDown的应用
@@ -132,3 +135,9 @@ Generating XML reports...
 
 ```
 因为通过parameterized扩展实现了参数化，对四个相似用例进行了测试，其中exception是期望输出；分析易知，四个之中有一个不符合期望的用例。
+
+4. 通过文件实现参数化
+
+使用parameterized进行扩展 `@parameterized.expand(redCvs('a.txt'))`
+
+
