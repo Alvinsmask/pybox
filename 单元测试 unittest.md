@@ -140,4 +140,26 @@ Generating XML reports...
 
 使用parameterized进行扩展 `@parameterized.expand(redCvs('a.txt'))`
 
+5. 批量读取测试用例 
 
+  方法一： `unittest.TestLoader().loadTestsFromTestCase()  # 直接从类里读取 ` 
+  
+  方法二： 每个python文件里放不同的功能测试用例，方便维护，那么怎么把他们一次性运行完呢，这里就用到了unittest里的 defaultTestLoader.discover方法了
+  
+  ```Python
+  import unittest,HTMLTestRunner
+  suite = unittest.TestSuite()#定义测试集合
+  all_case = unittest.defaultTestLoader.discover(
+      r'E:\szg\bestTest\day11\AUTO\case','test_*.py'
+  )#找到case目录下所有的.py文件
+
+  for case in all_case:
+      #循环添加case到测试集合里面
+      suite.addTests(case)
+
+  fw = open('report.html','wb')
+  runner = HTMLTestRunner.HTMLTestRunner(
+      stream=fw,title='多个文件运行'
+  )
+  runner.run(suite)
+  ```
