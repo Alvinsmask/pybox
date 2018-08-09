@@ -43,3 +43,92 @@ assert （表达式） # 如果正确就表示 pass  如果不正确则抛出一
 - `runner=xmlrunner.XMLTestRunner(output='.')` # 生成测试报告方法：**xmlrunner**，这个方法只要指定测试报告目录就可以
     
 - `runner.run(suite)`   #运行模块
+
+2. unittest中的setUp和tearDown的应用
+
+```Python
+#setUp和tearDown的运用
+import unittest
+class MyTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):  #类开始前运行，比如在执行这些用例之前需要备份数据库
+        print('1')
+
+    @classmethod
+    def tearDownClass(cls):   #类结束后运行，比如在执行这些用例之后需要还原数据库
+        print('0')
+    def setUp(self):  #测试用例执行前运行
+        print('a')
+    def tearDown(self):   #测试用例执行后运行
+        print('z')
+    def testa(self):
+        print('测试用例1')
+        self.assertEqual(1,1)
+    def testb(self):
+        print('测试用例2')
+        self.assertEqual(1,1)
+if __name__=='__main__':
+    unittest.main()
+```
+3. 参数化的unittest
+
+通过parameterized扩展unittest的功能，使其可以一次性测试多个相似结构的case
+
+```Python
+import unittest,xmlrunner
+from nose_parameterized import parameterized
+def login(username,passwd):
+    if username=='xiaogang' and passwd=='123456':
+        return True
+    else:
+        return False
+
+class Login(unittest.TestCase):
+    @parameterized.expand(
+        [
+            ['xiaogang','123456',True], #可以是list，也可以是元祖
+            ['','123456',True],
+            ['xiaogang','',False],
+            ['adgadg','123456',False]
+        ]
+    )
+    def testlogin(self,username,passwd,exception): #这里的参数对应上述列表里的元素，运行的时候会遍历上述列表里的二维列表直到所有元素都调用运行完成
+        '''登录'''
+        print('test login')
+        res=login(username,passwd)
+        self.assertEqual(res,exception)
+
+suite = unittest.TestSuite()
+suite.addTest(unittest.makeSuite(Login))
+runner=xmlrunner.XMLTestRunner(output='.') #生成测试报告方法：xmlrunner，这个方法只要指定测试报告目录就可以
+runner.run(suite)
+
+# 结果
+test login
+test login
+test login
+test login
+
+
+Running tests...
+----------------------------------------------------------------------
+.F..
+======================================================================
+ERROR [0.001s]: testlogin_1_ (__main__.Login)
+登录 [with username='', passwd='123456', exception=True]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/nose_parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "<ipython-input-20-8026ef0c8265>", line 22, in testlogin
+AssertionError: False != True
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+FAILED (errors=1)
+
+Generating XML reports...
+
+```
+因为通过parameterized扩展实现了参数化，对四个相似用例进行了测试，其中exception是期望输出；分析易知，四个之中有一个不符合期望的用例。
