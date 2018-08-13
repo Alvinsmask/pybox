@@ -179,40 +179,86 @@ while True：
 
 -  `str.find('chars')  #返回子字符的下标位置，若不存在返回-1 `
 
-9. 有关类
+8. 有关类
 
-定义python类的语法为：
-```Python
-class <class name>(<parent class name>):
-    <class variable assignment>
-    <instance method definition>
-```
-按照惯例，类名需要大写； 实例方法__init__叫做构造方法（类比构造函数）
+- 定义python类的语法为：
+    ```Python
+    class <class name>(<parent class name>):
+        <class variable assignment>
+        <instance method definition>
+    ```
+    按照惯例，类名需要大写； 实例方法__init__叫做构造方法（类比构造函数）
 
 **@classmethod 用法**classmethod 修饰符对应的函数不需要实例化，不需要 self 参数，但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。cls表示类对象，而不是类实例
 
 例如：
 
-```Python
-class A(object):
-    bar = 1
-    def func1(self):  
-        print ('foo') 
-    @classmethod
-    def func2(cls):
-        print ('func2')
-        print (cls.bar)
-        cls().func1()   # 调用 foo 方法
- 
-A.func2()               # 不需要实例化
+    ```Python
+    class A(object):
+        bar = 1
+        def func1(self):  
+            print ('foo') 
+        @classmethod
+        def func2(cls):
+            print ('func2')
+            print (cls.bar)
+            cls().func1()   # 调用 foo 方法
 
->>> func2
-    1
-    foo
-```
+    A.func2()               # 不需要实例化
+
+    >>> func2
+        1
+        foo
+    ```
+    
+- super方法
+
+    super() 函数是用于调用父类(超类)的一个方法。
+
+    super 是用来解决多重继承问题的，直接用类名调用父类方法在使用单继承的时候没问题，但是如果使用多继承，会涉及到查找顺序（MRO）、重复调用（钻石继承）等种种问题。
+
+    MRO 就是类的方法解析顺序表, 其实也就是继承父类方法时的顺序表。
+
+    Python3.x 和 Python2.x 的一个区别是: Python 3 可以使用直接使用 super().xxx 代替 super(Class, self).xxx :
+    
+    ```Python
+    #!/usr/bin/python
+    # -*- coding: UTF-8 -*-
+
+    class FooParent(object):
+        def __init__(self):
+            self.parent = 'I\'m the parent.'
+            print ('Parent')
+
+        def bar(self,message):
+            print ("%s from Parent" % message)
+
+    class FooChild(FooParent):
+        def __init__(self):
+            # super(FooChild,self) 首先找到 FooChild 的父类（就是类 FooParent），然后把类B的对象 FooChild 转换为类 FooParent 的对象
+            super(FooChild,self).__init__()    
+            print ('Child')
+
+        def bar(self,message):
+            super(FooChild, self).bar(message)
+            print ('Child bar fuction')
+            print (self.parent)
+
+    if __name__ == '__main__':
+        fooChild = FooChild()
+        fooChild.bar('HelloWorld')
+        
+    >>>
+        Parent
+        Child
+        HelloWorld from Parent
+        Child bar fuction
+        I'm the parent.
+    
+    ```
 
 
-10. 有关路径与目录的函数
+9. 有关路径与目录的函数
 
 有关获取项目位置的方法
 ```Python
@@ -262,7 +308,7 @@ if __name__ == '__main__':
     all_path(dirpath)
 ```
 
-11. 进行函数编程的时候：常常会给一些参数赋初始值。我们把这些初始值叫作Default Argument Values。一般情况下，我们可以很自由的给参数赋初值，而不需要考虑任何异常的情况或者陷阱。但是当你给这些参数赋值为可变对象（mutable object)，比如list，dictionary，很多类的实例时，那么你要小心了，因为函数参数的初值只能被计算一次（在函数定义的时间里）
+10. 进行函数编程的时候：常常会给一些参数赋初始值。我们把这些初始值叫作Default Argument Values。一般情况下，我们可以很自由的给参数赋初值，而不需要考虑任何异常的情况或者陷阱。但是当你给这些参数赋值为可变对象（mutable object)，比如list，dictionary，很多类的实例时，那么你要小心了，因为函数参数的初值只能被计算一次（在函数定义的时间里）
 
 ```Python
     def bad_foo(item, my_list=[]):
