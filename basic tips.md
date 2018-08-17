@@ -3,14 +3,14 @@
 `<format string>%<dautm>`分别是格式化字符串、格式化运算符以及要格式化的单个字符串
 对于多个字符串输出的格式化来说，`<format string>%（<dautm-1>,... ,<dautm-n>）`其中格式化字符串由%起始
 - int类型的格式化(**d代表整型数**)
-宽度格式化：**当宽度表示为负数时，数据左对齐；宽度表示为正数时，数据右对齐。**如果字段的宽度小于或等于字符中的数据的打印长度时，不添加对齐信息。
+宽度格式化：**当宽度表示为负数时，数据左对齐；宽度表示为正数时，数据右对齐。** 如果字段的宽度小于或等于字符中的数据的打印长度时，不添加对齐信息。
 ```Python
 >>>for exp in range(7,11):
     print('%3d%3s%-12d'%(exp, ' ',10**exp))
 >>> 7   10000000    
     8   100000000   
     9   1000000000  
-   10   10000000000 
+   10   10000000000
 ```
 - float类型的格式化（涉及到打印精度）
 其格式化信息为`<field width>.<precision>f` 小数点后的precision表示数字精度
@@ -19,14 +19,14 @@
 '3.140'
 ```
  2. Python operator.itemgetter函数
- 
+
  `from operator import itemgetter` 作用：itemgetter 用于获取对象的哪些位置的数据，参数即为代表位置的序号值
- 
+
  itemgetter 获取的不是值，而是定义了一个函数，通过该函数作用到目标对象上，取出目标对象对应维度的值例如：
- 
+
  ```Python
    >>>a = [1,2,3]
-   >>>b = [[1,2,3],[4,5,6],[7,8,9]] 
+   >>>b = [[1,2,3],[4,5,6],[7,8,9]]
    >>>get_1 = itemgetter(1)
    >>>get_1(a)  
    >>> 2
@@ -68,7 +68,7 @@ Python内建的filter()函数用于过滤序列。
 ```Python
 def is_odd(n):
      return n % 2 ==1
-     
+
 f = filter(is_odd, [1,2,3,4])
 
 print(f.__next__())
@@ -92,12 +92,12 @@ except <exception type>:
 
 示例：使用一个**递归函数**约束用户输入行为，捕获到valueerror异常，就会强制用户再次输入，直到正确为止。
 
-6. 文件及其操作 
+6. 文件及其操作
 
 **可以使用with语句，自动关闭文件**
 
 ```Python
-with open('myfile.txt', 'w') as f: 
+with open('myfile.txt', 'w') as f:
     <statements>
 ```
 
@@ -129,7 +129,7 @@ f.close()
 **readlines**方法：依次读取每行，最后返回列表
 
 ```Python
-with open('myfile.txt', 'w') as f: 
+with open('myfile.txt', 'w') as f:
    for data in f.readlines():
         <statements>
 ```
@@ -165,7 +165,7 @@ while True：
 
     Python split() 通过指定分隔符对字符串进行切片，如果参数 num 有指定值，则仅分隔 num 个子字符串
 
-    `str.split(str="", num=string.count(str))` 
+    `str.split(str="", num=string.count(str))`
 
     str -- 分隔符，默认为所有的空字符，包括空格、换行(\n)、制表符(\t)等; num -- 分割次数。
 
@@ -173,7 +173,7 @@ while True：
 
     该方法只能删除开头或是结尾的字符，不能删除中间部分的字符。
 
-    `str.strip([chars])` 
+    `str.strip([chars])`
 
     **chars -- 移除字符串头尾指定的字符序列。**
 
@@ -189,7 +189,7 @@ while True：
     ```
     按照惯例，类名需要大写； 实例方法__init__叫做构造方法（类比构造函数）
 
-**@classmethod 用法**classmethod 修饰符对应的函数不需要实例化，不需要 self 参数，但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。cls表示类对象，而不是类实例
+**@classmethod 用法** classmethod 修饰符对应的函数不需要实例化，不需要 self 参数，但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。cls表示类对象，而不是类实例
 
 例如：
 
@@ -197,7 +197,7 @@ while True：
     class A(object):
         bar = 1
         def func1(self):  
-            print ('foo') 
+            print ('foo')
         @classmethod
         def func2(cls):
             print ('func2')
@@ -210,7 +210,7 @@ while True：
         1
         foo
     ```
-    
+
 - super方法
 
     super() 函数是用于调用父类(超类)的一个方法。
@@ -220,7 +220,7 @@ while True：
     MRO 就是类的方法解析顺序表, 其实也就是继承父类方法时的顺序表。
 
     Python3.x 和 Python2.x 的一个区别是: Python 3 可以使用直接使用 super().xxx 代替 super(Class, self).xxx :
-    
+
     ```Python
     #!/usr/bin/python
     # -*- coding: UTF-8 -*-
@@ -247,14 +247,14 @@ while True：
     if __name__ == '__main__':
         fooChild = FooChild()
         fooChild.bar('HelloWorld')
-        
+
     >>>
         Parent
         Child
         HelloWorld from Parent
         Child bar fuction
         I'm the parent.
-    
+
     ```
 
 
@@ -322,7 +322,7 @@ if __name__ == '__main__':
     print bad_foo('c')
 
     >>>
-    
+
 
     ['a']
     ['a', 'b']
