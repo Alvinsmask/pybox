@@ -204,8 +204,14 @@ re模块的函数返回的是matchObj对象, matchObj对象有group()方法
 
 匹配对象方法 |描述
 :--- | :---
-group(num=0) | 匹配的整个表达式的字符串，group() 可以一次输入多个组号，在这种情况下它将返回一个包含那些组所对应值的元组。
+group(num=0) | 匹配的整个表达式的字符串，group() 可以一次输入多个组号，在这种情况下它将返回一个包含那些组所对应值的元组。**默认参数为0, 返回匹配到的字符串**
 groups() |  返回一个包含所有小组字符串的元组，从 1 到 所含的小组号。
+
+- group([group1, …]) 方法用于获得一个或多个分组匹配的字符串，当要获得整个匹配的子串时，可直接使用 group() 或 group(0)；
+- start([group]) 方法用于获取分组匹配的子串在整个字符串中的起始位置（子串第一个字符的索引），参数默认值为 0；
+- end([group]) 方法用于获取分组匹配的子串在整个字符串中的结束位置（子串最后一个字符的索引+1），参数默认值为 0；
+- span([group]) 方法返回 (start(group), end(group))。
+
 
 实例
 
@@ -243,4 +249,111 @@ re.match 尝试从字符串的起始位置匹配一个模式，如果不是起�
   string |  要匹配的字符串。
   flags | 标志位，用于控制正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。
 
+flags的具体参数:
+- re.I 忽略大小写
+- re.L 表示特殊字符集 \w, \W, \b, \B, \s, \S 依赖于当前环境
+- re.M 多行模式
+- re.S 即为 . 并且包括换行符在内的任意字符（. 不包括换行符）
+- re.U 表示特殊字符集 \w, \W, \b, \B, \d, \D, \s, \S 依赖于 Unicode 字符属性数据库
+- re.X 为了增加可读性，忽略空格和 # 后面的注释
+
+
 #### re.search()方法
+
+re.search 扫描整个字符串并返回第一个成功的匹配。
+
+语法：`re.search(pattern, string, flags=0)`
+
+参数说明同re.match()
+
+**re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。**
+
+<font color=red size=3>实例</font>
+
+```Python
+import re
+print(re.search('www', 'www.runoob.com').span())  # 在起始位置匹配
+print(re.search('com', 'www.runoob.com').span())         # 不在起始位置匹配
+>>>
+	(0, 3)
+	(11, 14)  #  如果是match()返回none
+```
+
+#### 检索与替换
+
+Python 的 re 模块提供了re.sub用于替换字符串中的匹配项。
+
+语法: `re.sub(pattern, repl, string, count=0, flags=0)`
+
+**count : 模式匹配后替换的最大次数，默认 0 表示替换所有的匹配。**
+
+实例:
+
+```Python
+import re
+
+phone = "2004-959-559 # 这是一个国外电话号码"
+
+# 删除字符串中的 Python注释
+num = re.sub(r'#.*$', "", phone)
+print ("电话号码是: ", num
+
+# 删除非数字(-)的字符串
+num = re.sub(r'\D', "", phone)  # \D匹配非数字 \d匹配数字
+print ("电话号码是 : ", num)
+```
+**当repl参数是一个函数时**
+**命名分组就是给具有默认分组编号的组另外再给一个别名**。命名分组的语法格式如下：
+
+`(?P<name>正则表达式) # name是一个合法的标识符`
+
+```Python
+import re
+# 将匹配的数字乘以 2
+def double(matched):
+    value = int(matched.group('value'))  # group函数可以接受分组命名作为参数
+    return str(value * 2)
+
+s = 'A23G4HFD567'
+print(re.sub('(?P<value>\d+)', double, s))
+```
+
+#### re.compile() 函数
+
+compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。
+
+语法格式为： `re.compile(pattern[, flags])`
+
+<font color=red size=3>实例</font>
+
+```Python
+>>>import re
+>>> pattern = re.compile(r'\d+')                    # 用于匹配至少一个数字
+>>> m = pattern.match('one12twothree34four')        # 查找头部，没有匹配
+>>> print m
+None
+>>> m = pattern.match('one12twothree34four', 2, 10) # 从'e'的位置开始匹配，没有匹配
+>>> print m
+None
+>>> m = pattern.match('one12twothree34four', 3, 10) # 从'1'的位置开始匹配，正好匹配
+>>> print m                                         # 返回一个 Match 对象
+<_sre.SRE_Match object at 0x10a42aac0>
+>>> m.group(0)   # 可省略 0
+'12'
+>>> m.start(0)   # 可省略 0
+3
+>>> m.end(0)     # 可省略 0
+5
+>>> m.span(0)    # 可省略 0
+(3, 5)
+```
+
+此外还有`re.findall re.finditer re.split`等函数,
+
+### 最后
+
+<font color=lightgreen size=5>由于正则表达式通常都包含反斜杠，所以最好使用原始字符串来表示它们。模式元素(如 r'\t'，等价于 '\\t')匹配相应的特殊字符。
+
+</font>
+
+所有内容参考自<http://www.runoob.com/python/python-reg-expressions.html>
