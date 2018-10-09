@@ -335,7 +335,6 @@ if __name__ == '__main__':
 11. 文件读写标志位以及功能说明
 
 
-<tbody>
 <tr>
 <td style="text-align: center">r</td>
 <td>以只读模式打开文件</td>
@@ -378,5 +377,6 @@ if __name__ == '__main__':
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
-</tbody>
+
+
 
