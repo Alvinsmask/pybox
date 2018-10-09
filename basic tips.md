@@ -334,7 +334,8 @@ if __name__ == '__main__':
 
 11. 文件读写标志位以及功能说明
 
-
+<table style="height: 300px; width: 1022px" border="0">
+<tbody>
 <tr>
 <td style="text-align: center">r</td>
 <td>以只读模式打开文件</td>
@@ -377,6 +378,29 @@ if __name__ == '__main__':
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
+</tbody>
+</table>
 
 
+f.read([size])：默认一次性读入打开的文件内容。如果有size参数，则指定每次读入字符数。注意，此处按字符来读入，一个汉字为一个字符
+
+f.readline([size])：一次读入一行文件内容
+
+f.readlines([size])：将文件内容全部读入，保存在一个列表中，每行为一个元素。
+
+f.writ(str,encoding=)：将str写入文件，可以指定写入的编码格式，默认为utf-8
+
+f.writlines()
+
+f.readable() ： 判断是否可读，返回布尔值。如果是在只写模式下打开文件， 也是返回false
+
+f.writable()：判断是否可写
+
+f.tell() ：  返回当前光标位置
+
+f.seek(offset,whence=0)：将光标位置移至所需位置。offset为偏移量。whence定义开始偏移的位置。0为从文件开头偏移。1为从当前位置开始偏移。2为从文件末尾开始偏移，默认为0。注意，此处偏移量是按字节计算，也就是一个汉字最少需要两个偏移量。如果偏移量正好讲一个汉字分开，则会报错。
+
+f.truncate(数值)   从光标位置截断/删除后面内容。
+
+f.flush()  将内存内容立即写入硬盘
 
