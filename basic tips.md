@@ -331,3 +331,52 @@ if __name__ == '__main__':
 
 
 ```
+
+11. 文件读写标志位以及功能说明
+
+
+<tbody>
+<tr>
+<td style="text-align: center">r</td>
+<td>以只读模式打开文件</td>
+<td>光标在文件开头</td>
+<td>如果文件不存在，则出错</td>
+</tr>
+<tr>
+<td style="text-align: center">&nbsp; &nbsp; &nbsp; r+ &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</td>
+<td>以读写模式打开文件</td>
+<td>光标在文件开头</td>
+<td>如果文件不存在，则出错。读写都可以移动光标。写入时，如果光标不在文件末尾，则会覆盖源文件</td>
+</tr>
+<tr>
+<td style="text-align: center">w</td>
+<td>以只写模式打开文件</td>
+<td>光标在文件开头</td>
+<td>如果文件不存在，则创建文件，如果文件已存在，则从文件头开始覆盖文件。如果写入内容比源文件少，则会保留未覆盖的内容</td>
+</tr>
+<tr>
+<td style="text-align: center">w+</td>
+<td>以读写模式打开文件</td>
+<td>光标在文件开头</td>
+<td>如果文件不存在，则会创建文件。文件已存在，从光标位置覆盖文件。读写都可以移动光标。</td>
+</tr>
+<tr>
+<td style="text-align: center">a</td>
+<td>以只写模式打开文件</td>
+<td>光标在文件结尾，追加模式</td>
+<td>文件不存在是，创建文件。文件存在时，打开时，光标在文件末尾，写入不覆盖源文件</td>
+</tr>
+<tr>
+<td style="text-align: center">a+</td>
+<td>以读写模式打开文件</td>
+<td>光标在文件结尾，追加模式</td>
+<td>文件不存在是，创建文件。文件存在时，打开时，光标在文件末尾，写入不覆盖源文件。</td>
+</tr>
+<tr>
+<td style="text-align: center">b</td>
+<td>与前面六种结合使用，以二进制方式读或者写</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+
