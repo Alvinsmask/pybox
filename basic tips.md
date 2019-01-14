@@ -404,3 +404,13 @@ f.truncate(数值)   从光标位置截断/删除后面内容。
 
 f.flush()  将内存内容立即写入硬盘
 
+12. 使用内置iter函数用于文档读取
+
+```Python
+# 逐行读取文件直到遇到空行，或者达到文件末尾
+
+with open('mydata.txt') as fp:
+    for line in iter(fp.readline, '\n'):  # iter函数第二个参数为哨符 当可调用的对象返回这个值的时候 会触发迭代器抛出 StopIteration 异常
+        print(line)
+```
+
