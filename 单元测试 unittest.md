@@ -178,3 +178,103 @@
     )
     runner.run(suite)
     ```
+
+7. 命令行中的unittest
+
+    - 命令行中运行可以指定模块、类、独立测试方法进行测试，使用方法如下：
+  
+        ```Python
+        python -m unittest test_module1 test_module2
+        python -m unittest test_module.TestClass
+        python -m unittest test_module.TestClass.test_method
+
+        ```
+
+    - 获得更详细的信息：`python -m unittest -v test_module`
+    - 探索性测试：`python -m unittest`等价于`python -m unittest discover`
+    - 获取命令行选项列表：`python -m unittest -h`
+    - 其他命令行选项：
+        - -b, --buffer 在测试运行时，标准输出流与标准错误流会被放入缓冲区。**成功的测试的运行时输出会被丢弃；测试不通过时，测试运行中的输出会正常显示，错误会被加入到测试失败信息**。
+
+        - -c, --catch 当测试正在运行时， Control-C 会等待当前测试完成，并在完成后报告已执行的测试的结果。当再次按下 Control-C 时，引发平常的 KeyboardInterrupt 异常。
+
+        - -f, --failfast 当出现第一个错误或者失败时，停止运行测试。
+
+        - -k 只运行匹配模式或子串的测试方法和类。可以多次使用这个选项，以便包含匹配子串的所有测试用例。
+
+            包含通配符（*）的模式使用 fnmatch.fnmatchcase() 对测试名称进行匹配。另外，**该匹配是大小写敏感的**。
+
+            模式对测试加载器导入的测试方法全名进行匹配。
+
+            例如，-k foo 可以匹配到 foo_tests.SomeTest.test_something 和 bar_tests.SomeTest.test_foo ，但是不能匹配到 bar_tests.FooTest.test_something 。
+
+        - --locals 在回溯中显示局部变量。
+    - 探索性测试（指在工程目录中进行测试搜索）
+
+        若要使用探索性测试，所有的测试文件必须是 modules 或 packages （包括 namespace packages )并可从项目根目录导入（即它们的文件名必须是有效的 identifiers ）。
+
+        探索性测试在 TestLoader.discover() 中实现（详见6-方法二），但也可以通过命令行使用。它在命令行中的基本用法如下：
+
+        ```Shell
+        cd project_directory
+        python -m unittest discover
+
+        ```
+
+        探索性测试命令选项
+
+        ```Shell
+
+        -v, --verbose 更详细地输出结果。
+
+        -s, --start-directory directory
+        开始进行搜索的目录(默认值为当前目录 . )。
+
+        -p, --pattern pattern
+        用于匹配测试文件的模式（默认为 test*.py ）。
+
+        -t, --top-level-directory directory
+        指定项目的最上层目录（通常为开始时所在目录）。
+
+        ```
+
+      -s ，-p 和 -t 选项可以按顺序作为位置参数传入。以下两条命令是等价的：
+
+        ```shell
+        python -m unittest discover -s project_directory -p "*_test.py"
+        python -m unittest discover project_directory "*_test.py"
+
+        ```
+
+    探索性测试通过导入测试对测试进行加载。在找到所有你指定的开始目录下的所有测试文件后，它把路径转换为包名并进行导入。如 foo/bar/baz.py 会被导入为 foo.bar.baz 。
+
+    如果你有一个全局安装的包，并尝试对这个包的副本进行探索性测试，可能会从错误的地方开始导入。如果出现这种情况，测试会输出警告并退出。
+
+    如果你使用包名而不是路径作为开始目录，搜索时会假定它导入的是你想要的目录，所以你不会收到警告。
+
+8. 跳过测试与预计失败
+
+    一些装饰器的使用方法：
+
+    ```Python
+    @unittest.skip(reason)
+    跳过被此装饰器装饰的测试。 reason 为测试被跳过的原因。
+
+    @unittest.skipIf(condition, reason)
+    当 condition 为真时，跳过被装饰的测试。
+
+    @unittest.skipUnless(condition, reason)
+    跳过被装饰的测试，除非 condition 为真。
+
+    @unittest.expectedFailure
+    把测试标记为预计失败。如果测试不通过，会被认为测试成功；如果测试通过了，则被认为是测试失败。
+
+    exception unittest.SkipTest(reason)
+    引发此异常以跳过一个测试。
+    '''
+    通常来说，你可以使用 TestCase.skipTest() 或其中一个跳过测试的装饰器实现跳过测试的功能，而不是直接引发此异常。
+
+    被跳过的测试的 setUp() 和 tearDown() 不会被运行。被跳过的类的 setUpClass() 和 tearDownClass() 不会被运行。被跳过的模组的 setUpModule() 和 tearDownModule() 不会被运行。
+    '''
+
+    ```
