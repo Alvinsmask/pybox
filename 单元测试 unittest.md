@@ -20,7 +20,7 @@ assert （表达式） # 如果正确就表示 pass  如果不正确则抛出一
 
 - 导入相关模块 unittest, xmlrunner(生成报告的模块)
 
-- 定义测试用例(可用一个类里不同测试函数，作为测试用例，测试用例必须以test开通) 继承自unittest.TestCase 
+- 定义测试用例(可用一个类里不同测试函数，作为测试用例，测试用例必须以`test`开头) 继承自unittest.TestCase 
   ```Python
   class MyTest(unittest.TestCase):
       def testa(self):    #定义一个测试用例，注意，测试用例必须test开始，不然不会当做是测试用例
